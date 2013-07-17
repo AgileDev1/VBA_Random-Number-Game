@@ -34,8 +34,7 @@ Sub RandomNumberGame()
         Loop
     
     If userguess = previousguess Then
-    PokeBear.Show
-    'MsgBox "You seriously picked the same number???", vbCritical, "Really???"
+    MsgBox "You seriously picked the same number???", vbCritical, "Really???"
     End If
     
     If userguess <> correctanswer Then
