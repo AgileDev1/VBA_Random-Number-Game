@@ -1,0 +1,91 @@
+Sub RandomNumberGame()
+
+    Dim userresponse As Integer
+    Dim userguess
+    Dim previousguess As Integer
+    
+    Dim numberguesses As Integer
+    Dim userguesses As Integer
+    
+    Dim correctanswer As Integer
+    Dim wronganswer As Integer
+    
+    correctanswer = Int((50 - 1 + 1) * Rnd + 1)
+        
+    numberguesses = 5
+    
+    Do While userguesses < numberguesses
+    
+        userguess = InputBox(Prompt:="Enter a number between 1 and 50:", Title:="Make a guess", Default:=1)
+        Do While userguess = Empty Or Not IsNumeric(userguess)
+            If userguess = Empty Then
+            userresponse = MsgBox("Giving up already?", vbYesNo, "Seriously?")
+            If userresponse = vbYes Then
+            MsgBox "Booooo!!!", vbCritical, "Never give up!"
+            MsgBox "Correct answer was " & correctanswer, vbInformation, "Better luck next time"
+            Exit Sub
+            Else
+            userguess = InputBox(Prompt:="Enter a number between 1 and 50:", Title:="Make a guess", Default:=1)
+            End If
+            ElseIf Not IsNumeric(userguess) Then
+            MsgBox "Please enter a numeric number", , "Invalid Entry!"
+            userguess = InputBox(Prompt:="Enter a number between 1 and 50:", Title:="Make a guess", Default:=1)
+            End If
+        Loop
+    
+    If userguess = previousguess Then
+    PokeBear.Show
+    'MsgBox "You seriously picked the same number???", vbCritical, "Really???"
+    End If
+    
+    If userguess <> correctanswer Then
+    
+    If userguess > correctanswer Then
+    
+        If userguess - correctanswer > 10 Then
+        MsgBox "It's lower than your guess of " & userguess & ", however, you are still off by a fair amount", vbDefaultButton1, "Hint"
+        ElseIf userguess - correctanswer < 10 Then
+        MsgBox "It's lower than your guess of " & userguess & ", however, you are getting close", vbDefaultButton1, "Hint"
+        ElseIf userguess - correctanswer > 1 And userguess - correctanswer < 5 Then
+        MsgBox "You are getting really warm", vbDefaultButton1, "Hint"
+        ElseIf userguess - correctanswer = 1 Then
+        MsgBox "You are red hot!!!", vbDefaultButton1, "Hint"
+        End If
+    
+    ElseIf userguess < correctanswer Then
+    
+        If Abs(userguess - correctanswer) > 10 Then
+        MsgBox "It's higher than your guess of " & userguess & ", however, you are still off by a fair amount", vbDefaultButton1, "Hint"
+        ElseIf Abs(userguess - correctanswer) < 10 Then
+        MsgBox "It's higher than your guess of " & userguess & ", however, you are getting close", vbDefaultButton1, "Hint"
+        ElseIf userguess - correctanswer > 1 And userguess - correctanswer < 5 Then
+        MsgBox "You are getting really warm", vbDefaultButton1, "Hint"
+        ElseIf Abs(userguess - correctanswer) = 1 Then
+        MsgBox "You are red hot and almost there!!!", vbDefaultButton1, "Hint"
+        End If
+        
+    End If
+    
+    previousguess = userguess
+    
+    userguesses = userguesses + 1
+        
+    If userguesses < 5 Then MsgBox "Try Again..." & numberguesses - userguesses & " more guesses left", vbExclamation, "Nice Try!"
+        
+    If numberguesses - userguesses = 0 Then
+    MsgBox "Your guesses are up! Correct answer was " & correctanswer, vbInformation, "Better luck next time"
+    End If
+    
+    Else
+    
+    If userguess = correctanswer Then
+    MsgBox "You guessed right! Well Done!", vbDefaultButton1, "Correct!"
+    Exit Sub
+    End If
+    
+    End If
+    
+    Loop
+    
+
+End Sub
